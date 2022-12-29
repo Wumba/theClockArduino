@@ -19,8 +19,8 @@ typedef struct {
 
 //gloabal variables
 Station stationlist[STATIONS];
-String ssid = "";
-String pkey = "";
+String ssid = "Kittel";
+String pkey = "Couscoussalat";
 String ntp = "de.pool.ntp.org";
 boolean connected;
 uint8_t curStation = 0;   //index for current selected station in stationlist
@@ -43,8 +43,8 @@ void setup() {
   pref.begin("radio", false);
   sender.begin("senderlist",false);
   //get ssid and pkey, ntp-server and last gain and last station from preferences
-  if (pref.isKey("ssid")) ssid = pref.getString("ssid");
-  if (pref.isKey("pkey")) pkey = pref.getString("pkey");
+  //if (pref.isKey("ssid")) ssid = pref.getString("ssid");
+  //if (pref.isKey("pkey")) pkey = pref.getString("pkey");
   if (pref.isKey("ntp")) ntp = pref.getString("ntp");
   curGain = 50; //default value
   if (pref.isKey("gain")) curGain = pref.getUShort("gain");
