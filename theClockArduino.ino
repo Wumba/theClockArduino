@@ -19,32 +19,32 @@ typedef struct {
 
 //gloabal variables
 Station stationlist[STATIONS];
-String ssid = "Kittel";
-String pkey = "Couscoussalat";
+String ssid = "";
+String pkey = "";
 String ntp = "de.pool.ntp.org";
 boolean connected;
 uint8_t curStation = 0;   //index for current selected station in stationlist
 uint8_t curGain = 200;    //current loudness
-uint8_t actStation = 0;   //index for current station in station list used for streaming 
+uint8_t actStation = 0;   //index for current station in station list used for streaming
 uint32_t lastchange = 0;  //time of last selection change
 char title[64];           //character array to hold meta data message
 bool newTitle = false;
 uint32_t tick = 0;        //last tick-counter value to trigger timed event
 uint32_t discon = 0;      //tick-counter value to calculate disconnected time
 
-      
+
 //setup
 void setup() {
   Serial.begin(115200);
   Serial.println("Load preferences");
-  //preferences will be saved in the EPROM of the ESP32 to keep the values even 
+  //preferences will be saved in the EPROM of the ESP32 to keep the values even
   //if power supply will be interrupted
   //Two topics "radio" and "senderliste" are defined. We will mount both
   pref.begin("radio", false);
   sender.begin("senderlist",false);
   //get ssid and pkey, ntp-server and last gain and last station from preferences
-  //if (pref.isKey("ssid")) ssid = pref.getString("ssid");
-  //if (pref.isKey("pkey")) pkey = pref.getString("pkey");
+  if (pref.isKey("ssid")) ssid = pref.getString("ssid");
+  if (pref.isKey("pkey")) pkey = pref.getString("pkey");
   if (pref.isKey("ntp")) ntp = pref.getString("ntp");
   curGain = 50; //default value
   if (pref.isKey("gain")) curGain = pref.getUShort("gain");
